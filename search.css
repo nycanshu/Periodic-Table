@@ -1,0 +1,245 @@
+.box {
+    margin-top: 100px;
+    margin-left: 35%;
+    margin-right: 35%;
+    border: 1px solid black;
+    border-radius: 10px;
+  }
+  
+  .text1 {
+    margin-top: 20px;
+    color: black;
+    text-align: center;
+    font-family: exo;
+  }
+  
+  #expression {
+    text-align: center;
+    padding-right: 10px;
+    color: black;
+    margin-top: 30px;
+    font-size: 20px;
+    border: none;
+    background-color: transparent;
+    font-family: exo;
+    border-bottom: 2px solid black;
+    overflow: hidden;
+    display: block;
+    color: grey;
+  }
+  
+  input:focus {
+    outline: none;
+  }
+  
+  .text4 {
+    font-family: arial;
+    font-size: 14px;
+    color: black;
+    margin-top: 40px;
+  }
+  
+  .link1 {
+    color: black;
+    padding: 10px;
+    position: relative;
+    top: 16px;
+  }
+  
+  .link1:hover {
+    color: black;
+    padding: 10px;
+    position: relative;
+    top: 16px;
+    border-bottom: 2px solid #00ccff;
+    border-top: 2px dotted #00ccff;
+  }
+  
+  .text2 {
+    animation: colorchange 1s infinite;
+    font-size: 30px;
+    word-spacing: 3px;
+    position: relative;
+    top: 20px;
+    font-family: "exo", "bell mt";
+    color: #00ccff;
+  }
+  
+  @keyframes colorchange {
+    0% {
+      color: #00ccff;
+    }
+    50% {
+      color: orange;
+    }
+  }
+  
+  select {
+    padding-right: 10px;
+    padding-left: 10px;
+    border: none;
+    background-color: transparent;
+    font-family: exo;
+    color: black;
+    position: relative;
+    top: 30px;
+  }
+  
+  .but1 {
+    border: none;
+    border: 2px solid rgb(0, 182, 203);
+    background-color: rgb(1, 160, 192);
+    margin-top: 20px;
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+    font-family: exo;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  
+  .but1:hover {
+    box-shadow: 2px 2px 5px black;
+    cursor: pointer;
+  }
+  
+  .but1:active {
+    box-shadow: none;
+    transition: 0.1s;
+    border: 2px solid black;
+    background-color: black;
+  }
+  
+  .but1:focus {
+    outline: none;
+  }
+  
+  #suggestion-list li:hover {
+    background-color: #d2b48c;
+    cursor: pointer;
+  }
+
+  #element-table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin-top: 80px;
+    width: 100%;
+  }
+
+  #element-table th,
+  #element-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+
+  #element-table th {
+    background-color: #f2f2f2;
+  }
+  .search-box {
+    margin-top: 100px;
+    margin-left: 35%;
+    margin-right: 35%;
+    border: 1px solid black;
+    border-radius: 10px;
+  }
+
+  .text1 {
+    margin-top: 20px;
+    color: black;
+    text-align: center;
+    font-family: exo;
+  }
+
+  #expression {
+    text-align: center;
+    padding-right: 10px;
+    color: black;
+    margin-top: 30px;
+    font-size: 20px;
+    border: none;
+    background-color: transparent;
+    font-family: exo;
+    border-bottom: 2px solid black;
+    overflow: hidden;
+    display: block;
+    color: grey;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  select {
+    padding-right: 10px;
+    padding-left: 10px;
+    border: none;
+    background-color: transparent;
+    font-family: exo;
+    color: black;
+    position: relative;
+    top: 30px;
+  }
+
+  .but1 {
+    border: none;
+    border: 2px solid rgb(0, 182, 203);
+    background-color: rgb(1, 160, 192);
+    margin-top: 20px;
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+    font-family: exo;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .but1:hover {
+    box-shadow: 2px 2px 5px black;
+    cursor: pointer;
+  }
+
+  .but1:active {
+    box-shadow: none;
+    transition: 0.1s;
+    border: 2px solid black;
+    background-color: black;
+  }
+
+  .but1:focus {
+    outline: none;
+  }
+
+  #suggestion-list li:hover {
+    background-color: #d2b48c;
+    cursor: pointer;
+  }
+
+  /* CSS styles for the element details */
+  #element-details {
+    margin-top: 20px;
+    margin-left: 10%;
+    margin-right: 10%;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    font-family: exo;
+  }
+
+  #element-table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  #element-table th,
+  #element-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+
+  #element-table th {
+    background-color: #f2f2f2;
+  }

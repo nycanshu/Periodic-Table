@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Exo">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
+  <link rel="stylesheet" href="/boot/bootstrap.css">
+  <!-- <link rel="shortcut icon" type="image/png" href="favicon.ico"> -->
+  <title>Periodic Table</title>
+  <style>
+    * {
+      margin: 0px;
+      padding: 0px;
+      box-sizing: border-box;
+    }
+
+    .text2 {
+      font-size: 50px;
+      word-spacing: 3px;
+      font-family: "exo", "bell mt";
+      color: #00ccff;
+    }
+
+    .text3 {
+      position: relative;
+      top: 20px;
+      font-size: 20px;
+      word-spacing: 3px;
+      font-family: "arial", "bell mt";
+      color: white;
+    }
+
+    .text4 {
+      font-family: "arial";
+      font-size: 14px;
+      color: white;
+    }
+
+    .search {
+      margin-top: 8px;
+      background-color: transparent;
+      display: block;
+      position: relative;
+      color: black;
+      font-size: 15px;
+      font-family: exo;
+      /* content-alignment:center; */
+      text-decoration: none;
+    }
+
+    .search:hover {
+      transition: 0.1s;
+    }
+
+    .search::before {
+      background-color: black;
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transition: all 0.2s ease;
+      transform: translate(-50%, -50%);
+      width: 0;
+      height: 1px;
+      z-index: -1;
+    }
+
+    .search:hover::before {
+      width: 100%;
+    }
+
+    .noble {
+      background-color: white;
+      background-color: black;
+      color: white;
+    }
+
+    table {
+      position: relative;
+      top: 20px;
+    }
+
+    td {
+      border: 2px solid black;
+      font-size: 2vw;
+      padding: 10px 13px;
+      color: black;
+      text-align: center;
+      border-radius: 2px;
+
+    }
+
+    select {
+      float: right;
+      border: none;
+      border-bottom: 2px solid white;
+      background-color: transparent;
+      color: black;
+      font-family: exo;
+    }
+
+    option {
+      color: black;
+    }
+
+    #but1 {
+      float: right;
+      border: none;
+      border-bottom: 2px solid white;
+      color: black;
+      background-color: transparent;
+      margin-left: -10px;
+    }
+
+    #but1:focus {
+      outline: none;
+    }
+
+
+    #img1 {
+      background-color: white;
+      float: right;
+      width: 15px;
+      cursor: pointer;
+    }
+
+    /*dropdown content css code*/
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 100px;
+      border: 1px solid black;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      padding: 10px 15px;
+      z-index: 1;
+      border-radius: 5px;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 10px 10px;
+      overflow: hidden;
+      background-color: Transparent;
+      top: 0;
+    }
+
+
+
+    li:last-child {
+      border-right: none;
+    }
+
+    li a {
+      display: block;
+      font-size: 15px;
+      font-family: exo;
+      color: black;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    text1 {
+      float: left;
+      font-size: 15px;
+      font-family: exo;
+      color: black;
+    }
+
+    .link1 {
+      color: white;
+      padding: 10px;
+      position: relative;
+      top: -16px;
+    }
+
+    .link1:hover {
+      color: #00ccff;
+      padding: 10px;
+      position: relative;
+      top: -16px;
+      border-bottom: 2px solid #00ccff;
+      border-top: 2px dotted #00ccff;
+    }
+  </style>
+  <script>
+    function f1() {
+      var x = document.getElementById("inp1").value;
+      var arr1 = document.getElementsByClassName(x);
+      var arr2 = document.getElementsByClassName("td");
+
+      if (x != "") {
+        for (var j = 0; j < arr2.length; j++) {
+          arr2[j].style.color = "grey";
+          arr2[j].style.border = "2px solid grey";
+          arr2[j].style.borderRadius = "2px";
+          arr2[j].style.backgroundColor = "black";
+          arr2[j].style.boxShadow = "none";
+
+        }
+      }
+      switch (x) {
+        case 'gas':
+
+          for (var i = 0; i < arr1.length; i++) {
+            arr1[i].style.backgroundColor = "#87ceeb";
+            arr1[i].style.boxShadow = "0px 0px 10px 5px #87ceeb";
+            arr1[i].style.color = "black";
+            arr1[i].style.border = "2px solid #87ceeb";
+          }
+          break;
+        case 'liquid':
+
+          for (var i = 0; i < arr1.length; i++) {
+            arr1[i].style.backgroundColor = "#7122fa"
+            arr1[i].style.boxShadow = "0px 0px 10px 5px #7122fa";
+            arr1[i].style.color = "black";
+            arr1[i].style.border = "2px solid #7122fa";
+          }
+          break;
+        case 'noble':
+          for (var i = 0; i < arr1.length; i++) {
+            arr1[i].style.backgroundColor = "#09fbd3";
+            arr1[i].style.border = "1px solid #09fbd3";
+            arr1[i].style.color = "black";
+            arr1[i].style.boxShadow = "0px 0px 10px 5px #09fbd3";
+          }
+          break;
+        case 's': for (var i = 0; i < arr1.length; i++) {
+          arr1[i].style.border = "2px solid pink";
+          arr1[i].style.backgroundColor = " pink";
+          arr1[i].style.color = "black";
+          arr1[i].style.boxShadow = "0px 0px 10px 5px pink";
+        }
+
+          break;
+        case 'p': for (var i = 0; i < arr1.length; i++) {
+          arr1[i].style.border = "2px solid #9bc400";
+          arr1[i].style.backgroundColor = " #9bc400";
+          arr1[i].style.boxShadow = "0px 0px 10px 5px #9bc400";
+          arr1[i].style.color = "black";
+        }
+
+          break;
+        case 'f': for (var i = 0; i < arr1.length; i++) {
+          arr1[i].style.border = "2px solid orange";
+          arr1[i].style.backgroundColor = "orange";
+          arr1[i].style.boxShadow = "0px 0px 10px 5px orange";
+          arr1[i].style.color = "white";
+        }
+
+          break;
+        case 'd': for (var i = 0; i < arr1.length; i++) {
+          arr1[i].style.border = "2px solid #00ccff";
+          arr1[i].style.backgroundColor = "#00ccff";
+          arr1[i].style.boxShadow = "0px 0px 10px 5px #00ccff";
+          arr1[i].style.color = "black";
+        }
+
+          break;
+        case 'metalloid': for (var i = 0; i < arr1.length; i++) {
+          arr1[i].style.border = "2px solid red";
+          arr1[i].style.backgroundColor = " red";
+          arr1[i].style.color = "white";
+          arr1[i].style.boxShadow = "0px 0px 10px 5px red";
+        }
+
+          break;
+        case 'metal': for (var i = 0; i < arr1.length; i++) {
+          arr1[i].style.border = "2px solid silver";
+          arr1[i].style.backgroundColor = " silver";
+          arr1[i].style.color = "black";
+          arr1[i].style.boxShadow = "0px 0px 10px 5px silver";
+        }
+
+          break;
+        case 'dig':
+          {
+            arr1[0].style.border = "2px solid #00ccff";
+            arr1[0].style.backgroundColor = "#00ccff ";
+
+            arr1[0].style.color = "black";
+          }
+
+          {
+            arr1[1].style.border = "2px solid #39ff14";
+            arr1[1].style.backgroundColor = "#39ff14 ";
+
+            arr1[1].style.color = "black";
+          }
+          {
+            arr1[2].style.border = "2px solid orange";
+            arr1[2].style.backgroundColor = "orange"
+            arr1[2].style.color = "black";
+          }
+          {
+            arr1[3].style.border = "2px solid #00ccff";
+            arr1[3].style.backgroundColor = "#00ccff ";
+
+            arr1[3].style.color = "black";
+          } {
+            arr1[4].style.border = "2px solid #39ff14";
+            arr1[4].style.backgroundColor = "#39ff14 ";
+
+            arr1[4].style.color = "black";
+          }
+          {
+            arr1[5].style.border = "2px solid orange";
+            arr1[5].style.backgroundColor = "orange ";
+
+            arr1[5].style.color = "black";
+          }
+
+
+
+          break;
+        case 'radioactive': for (var i = 0; i < arr1.length; i++) {
+          arr1[i].style.border = "2px solid #39ff14";
+          arr1[i].style.backgroundColor = "#39ff14 ";
+          arr1[i].style.boxShadow = "0px 0px 10px 5px #39ff14";
+          arr1[i].style.color = "black";
+        }
+
+          break;
+        case 'refresh':
+          for (var j = 0; j < arr2.length; j++) {
+            arr2[j].style.color = "white";
+            arr2[j].style.border = "2px solid white";
+            arr2[j].style.borderRadius = "2px";
+            arr2[j].style.backgroundColor = "black";
+            arr2[j].style.boxShadow = "none";
+
+          }
+
+          break;
+
+      }
+
+    }
+  </script>
+
+</head>
+
+<body bgcolor="white">
+  <ul>
+    <li style="float:right;"> <select id="inp1"
+        style="padding-top:10px;padding-right:2%;margin-top:10px;border:1px solid #000;" onchange="f1()">
+        <option value="refresh">Refresh
+        <option value="metal">Metal
+        <option value="metalloid">Metalloid
+        <option value="gas">Gas
+        <option value="liquid">Liquid(300K)
+        <option value="noble">Noble/Real gas
+        <option value="radioactive">Radioactive
+        <option value="dig">Diagonal rela
+        <option value="s">s-block element
+        <option value="p">p-block element
+        <option value="d">d-block element
+        <option value="f">f-block element
+      </select></a></li>
+    <li style="float:right;margin-right:10px;"><a class="search" href="search.html">
+        <div class="btn btn-primary">Search</div>
+      </a></li>
+    <li>
+      <text1>Mahima Nishad/Periodic Table</text1>
+    </li>
+  </ul>
+
+  <div style="color:black;font-size:12px;position:relative;top:10px;margin-left:100px;">1</div>
+  <div style="color:black;font-size:12px;position:relative;top:10px;margin-left:1245px;margin-top:-12px;">18</div>
+  <center>
+    <table align="center">
+      <tr>
+        <td class="td gas s metal">
+          <div class="dropdown">
+            <span>H</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Hydrogen,1,<b>1.00784</b></p>
+            </div>
+          </div>
+        </td>
+        <td style="color:black;border:none;position:relative;top:10px;font-size:12px;">2</td>
+        <td style="color:white;border:none;"></td>
+        <td style="color:black;border:none;"></td>
+        <td style="color:black;border:none;"></td>
+        <td style="color:black;border:none;"></td>
+        <td style="color:black;border:none;"></td>
+        <td style="color:black;border:none;"></td>
+        <td style="color:black;border:none;"></td>
+        <td style="color:black;border:none;"></td>
+        <td style="color:black;border:none;"></td>
+        <td style="color:black;border:none;"></td>
+        <td style="color:black;border:none;position:relative;top:10px;font-size:12px;">13</td>
+        <td style="color:black;border:none;position:relative;top:10px;font-size:12px;">14</td>
+        <td style="color:black;border:none;position:relative;top:10px;font-size:12px;">15</td>
+        <td style="color:black;border:none;position:relative;top:10px;font-size:12px;">16</td>
+        <td style="color:black;border:none;position:relative;top:10px;font-size:12px;">17</td>
+
+        <td class="td p gas noble">
+          <div class="dropdown">
+            <span>He</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Helium,2,<b>4.002602</b></p>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="td s solid metal dig">
+          <div class="dropdown">
+            <span>Li</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Lithium,3,<b>6.941</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td s solid metal dig">
+          <div class="dropdown">
+            <span>Be</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Beryllium,4,<b>9.012182</b></p>
+            </div>
+          </div>
+        </td>
+        <td style="color:black;border:none;"></td>
+        <td style="color:black;border:none;"></td>
+        <td style="color:black;border:none;"></td>
+        <td style="color:black;border:none;"></td>
+        <td style="color:black;border:none;"></td>
+        <td style="color:black;border:none;"></td>
+        <td style="color:black;border:none;"></td>
+        <td style="color:black;border:none;"></td>
+        <td style="color:black;border:none;"></td>
+        <td style="color:black;border:none;"></td>
+        <td class="td p metalloid dig">
+          <div class="dropdown">
+            <span>B</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Boron,5,<b>10.806</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p solid nonmetal">
+          <div class="dropdown">
+            <span>C</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Carbon,6,<b>12.0107</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p gas">
+          <div class="dropdown">
+            <span>N</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Nitrogen,7,<b>14.0067</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p gas">
+          <div class="dropdown">
+            <span>O</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Oxygen,8,<b>15.9999</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p gas">
+          <div class="dropdown">
+            <span>F</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Fluorine,9,<b>18.9984</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p gas noble">
+          <div class="dropdown">
+            <span>Ne</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Neon,10,<b>20.1797</b></p>
+            </div>
+          </div>
+        </td>
+
+      </tr>
+      <tr>
+        <td class="td s solid metal">
+          <div class="dropdown"><span>Na</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Sodium,11,<b>22.990</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td s solid metal dig">
+          <div class="dropdown"><span>Mg</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Magnesium,12,<b>24.305</b></p>
+            </div>
+          </div>
+        </td>
+        <td style="color:black;border:none;position:relative;top:10px;font-size:12px;">3</td>
+        <td style="color:black;border:none;position:relative;top:10px;font-size:12px;">4</td>
+        <td style="color:black;border:none;position:relative;top:10px;font-size:12px;">5</td>
+        <td style="color:black;border:none;position:relative;top:10px;font-size:12px;">6</td>
+        <td style="color:black;border:none;position:relative;top:10px;font-size:12px;">7</td>
+        <td style="color:black;border:none;position:relative;top:10px;font-size:12px;">8</td>
+        <td style="color:black;border:none;position:relative;top:10px;font-size:12px;">9</td>
+        <td style="color:black;border:none;position:relative;top:10px;font-size:12px;">10</td>
+        <td style="color:black;border:none;position:relative;top:10px;font-size:12px;">11</td>
+        <td style="color:black;border:none;position:relative;top:10px;font-size:12px;">12</td>
+        <td class="td p solid metal dig">
+          <div class="dropdown"><span>Al</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Alumunium,13,<b>26.982</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p metalloid dig">
+          <div class="dropdown"><span>Si</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Silicon,14,<b>28.085</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p solid">
+          <div class="dropdown"><span>P</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Phosphorus,15,<b>30.974</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p solid">
+          <div class="dropdown"><span>S</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Sulphur,16,<b>32.06</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p gas">
+          <div class="dropdown"><span>Cl</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Chlorine,17,<b>35.45</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p gas noble">
+          <div class="dropdown"><span>Ar</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Argon,18,<b>39.95</b></p>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="td s solid metal">
+          <div class="dropdown"><span>K</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Potassium,19,<b>39.098</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td s solid metal">
+          <div class="dropdown"><span>Ca</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Calcium,20,<b>40.078</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d solid metal">
+          <div class="dropdown"><span>Sc</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Scandium,21,<b>44.958</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d solid metal">
+          <div class="dropdown"><span>Ti</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Titanium,22,<b>47.867</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d metal">
+          <div class="dropdown"><span>V</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Vanadium,23,<b>50.942</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d metal">
+          <div class="dropdown"><span>Cr</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Chromium,24,<b>51.996</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d metal">
+          <div class="dropdown"><span>Mn</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Manganese,25,<b>54.938</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d metal">
+          <div class="dropdown"><span>Fe</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Iron,26,<b>55.845</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d metal">
+          <div class="dropdown"><span>Co</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Cobalt,27,<b>58.933</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d metal">
+          <div class="dropdown"><span>Ni</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Nickel,28,<b>58.693</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d metal">
+          <div class="dropdown"><span>Cu</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Copper,29,<b>63.546</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d metal">
+          <div class="dropdown"><span>Zn</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Zinc,30,<b>65.38</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p metal liquid">
+          <div class="dropdown"><span>Ga</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Gallium,31,<b>69.723</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p metalloid">
+          <div class="dropdown"><span>Ge</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Germanium,32,<b>72.630</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p metalloid">
+          <div class="dropdown"><span>As</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Arsenic,33,<b>74.922</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p">
+          <div class="dropdown"><span>Se</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Selenium,34,<b>78.971</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p liquid">
+          <div class="dropdown"><span>Br</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Bromine,35,<b>79.904</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p gas noble">
+          <div class="dropdown"><span>Kr</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Krypton,36,<b>83.798</b></p>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="td s metal">
+          <div class="dropdown"><span>Rb</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Rubidium,37,<b>85.4678</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td s metal">
+          <div class="dropdown"><span>Sr</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Strontium,38,<b>87.62</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d metal">
+          <div class="dropdown"><span>Y</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Yttrium,39,<b>88.90585</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d metal">
+          <div class="dropdown"><span>Zr</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Zirconium,40,<b>91.224</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d metal">
+          <div class="dropdown"><span>Nb</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Niobium,41,<b>92.90638</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d metal">
+          <div class="dropdown"><span>Mo</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Molybdenum,42,<b>95.94</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d metal radioactive">
+          <div class="dropdown"><span>Tc</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Technetium,43,<b>98</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d metal">
+          <div class="dropdown"><span>Ru</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Ruthenium,44,<b>101.07</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d metal">
+          <div class="dropdown"><span>Rh</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Rhodium,45,<b>102.905</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d metal">
+          <div class="dropdown"><span>Pd</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Palladium,46,<b>106.42</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d metal">
+          <div class="dropdown"><span>Ag</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Silver,47,<b>107.8682</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d metal">
+          <div class="dropdown"><span>Cd</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Cadmium,48,<b>112.411</b></p>
+            </div>
+            </Cdv>
+        </td>
+        <td class="td p metal">
+          <div class="dropdown"><span>In</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">In,49,<b>114.818</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p metal">
+          <div class="dropdown"><span>Sn</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Tin,50,<b>118.470</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p metalloid">
+          <div class="dropdown"><span>Sb</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Antimony,51,<b>121.760</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p metalloid">
+          <div class="dropdown"><span>Te</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Tellurium,52,<b>127.60</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p nonmetal">
+          <div class="dropdown"><span>I</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Iodine,53,<b>126.90447</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p gas noble">
+          <div class="dropdown"><span>Xe</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Xenon,54,<b>131.293</b></p>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="td s solid metal">
+          <div class="dropdown"><span>Cs</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Cesium,55,<b>132.906</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td s solid metal">
+          <div class="dropdown"><span>Ba</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Barium,56,<b>137.327</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d solid metal">
+          <div class="dropdown"><span>La</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Lanthanum,57,<b>138.906</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d solid metal">
+          <div class="dropdown"><span>Hf</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Hafnium,72,<b>178.490</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d solid metal">
+          <div class="dropdown"><span>Ta</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Tantalum,73,<b>180.948</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d solid metal">
+          <div class="dropdown"><span>W</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Tungston,74,<b>183.840</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d solid metal">
+          <div class="dropdown"><span>Re</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Rhenium,75,<b>186.207</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d solid metal">
+          <div class="dropdown"><span>Os</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Osmium,76,<b>190.230</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d solid metal">
+          <div class="dropdown"><span>Ir</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Iridium,77,<b>192.217</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d solid metal">
+          <div class="dropdown"><span>Pt</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Platinum,78,<b>195.078</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d solid metal">
+          <div class="dropdown"><span>Au</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Gold,79,<b>196.967</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d liquid metal">
+          <div class="dropdown"><span>Hg</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Mercury,80,<b>200.590</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p solid metal">
+          <div class="dropdown"><span>Tl</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Thallium,81,<b>204.383</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p solid metal">
+          <div class="dropdown"><span>Pb</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Lead,82,<b>207.200</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p solid metal">
+          <div class="dropdown"><span>Bi</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Bismuth,83,<b>208.980</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p metalloid radioactive">
+          <div class="dropdown"><span>Po</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Polonium,84,<b>209</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p solid metal radioactive">
+          <div class="dropdown"><span>At</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Astatine,85,<b>210</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p gas noble radioactive">
+          <div class="dropdown"><span>Rn</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Radon,86,<b>222</b></p>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="td s solid metal radioactive">
+          <div class="dropdown"><span>Fr</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Francium,87,<b>223</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td s solid metal radioactive">
+          <div class="dropdown"><span>Ra</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Radium,88,<b>226</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d solid metal radioactive">
+          <div class="dropdown"><span>Ac</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Actinium,89,<b>227</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d solid metal radioactive">
+          <div class="dropdown"><span>Rf</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Rutherfordium,104,<b>261</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d solid metal radioactive">
+          <div class="dropdown"><span>Db</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Dubnium,105,<b>262</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d solid metal radioactive">
+          <div class="dropdown"><span>Sg</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Seaborgium,106,<b>266</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d solid metal radioactive">
+          <div class="dropdown"><span>Bh</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Bohrium,107,<b>264</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d solid metal radioactive">
+          <div class="dropdown"><span>Hs</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Hassium,108,<b>277</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d solid metal radioactive">
+          <div class="dropdown"><span>Mt</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Meitnerium,109,<b>268</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d solid metal radioactive">
+          <div class="dropdown"><span>Ds</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Darmstadtium,110,<b>261.9</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d solid metal radioactive">
+          <div class="dropdown"><span>Rg</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Roentgenium,111,<b>271.8</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td d solid metal radioactive">
+          <div class="dropdown"><span>Cn</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Coppernicium,112,<b>285</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p solid metal radioactive">
+          <div class="dropdown"><span>Nh</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Nihonium,113,<b>286</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p solid metal radioactive">
+          <div class="dropdown"><span>Fl</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Flerovium,114,<b>289</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p solid metal radioactive">
+          <div class="dropdown"><span>Mc</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Moscovium,115,<b>288</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p solid metal radioactive">
+          <div class="dropdown"><span>Lv</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Livermorium,116,<b>293</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p solid metal radioactive">
+          <div class="dropdown"><span>Ts</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Tennessine,117,<b>294</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td p gas noble radioactive">
+          <div class="dropdown"><span>Og</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Oganesson,118,<b>294</b></p>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td style="color:black;border:none;"></td>
+      </tr>
+      <tr>
+        <td style="color:black;border:none;margin-top:20px;"></td>
+        <td style="color:black;border:none;"></td>
+        <td style="color:black;border:none;"></td>
+        <td class="td f solid metal">
+          <div class="dropdown"><span>Ce</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Cerium,58,<b>140.116</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal">
+          <div class="dropdown"><span>Pr</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Praseodymium,59,<b>140.907</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal">
+          <div class="dropdown"><span>Nd</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Neodymium,60,<b>144.242</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal radioactive">
+          <div class="dropdown"><span>Pm</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Promethium,61,<b>145</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal">
+          <div class="dropdown"><span>Sm</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Samarium,62,<b>150.36</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal">
+          <div class="dropdown"><span>Eu</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Europium,63,<b>151.964</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal">
+          <div class="dropdown"><span>Gd</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Gadolinium,64,<b>157.25</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal">
+          <div class="dropdown"><span>Tb</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Terbium,65,<b>158.92535</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal">
+          <div class="dropdown"><span>Dy</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Dysprosium,66,<b>162.500</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal">
+          <div class="dropdown"><span>Ho</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Holmium,67,<b>164.930</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal">
+          <div class="dropdown"><span>Er</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Erbium,68,<b>167.259</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal">
+          <div class="dropdown"><span>Tm</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Thulium,69,<b>168.93421</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal">
+          <div class="dropdown"><span>Yb</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Ytterbium,70,<b>173.04</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal">
+          <div class="dropdown"><span>Lu</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Lutetium,71,<b>174.967</b></p>
+            </div>
+          </div>
+        </td>
+        <td style="color:black;border:none;"></td>
+      </tr>
+      <tr>
+        <td style="color:black;border:none;"></td>
+        <td style="color:black;border:none;"></td>
+        <td style="color:black;border:none;"></td>
+        <td class="td f solid metal radioactive">
+          <div class="dropdown"><span>Th</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Thorium,90,<b>232.03806</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal radioactive">
+          <div class="dropdown"><span>Pa</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Protactinium,91,<b>231.04</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal radioactive">
+          <div class="dropdown"><span>U</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Uranium,92,<b>238.02981</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal radioactive">
+          <div class="dropdown"><span>Np</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Neptunium,93,<b>237</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal radioactive">
+          <div class="dropdown"><span>Pu</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Plutonium,94,<b>244</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal radioactive">
+          <div class="dropdown"><span>Am</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Amercium,95,<b>243</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal radioactive">
+          <div class="dropdown"><span>Cm</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Curium,96,<b>247</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal radioactive">
+          <div class="dropdown"><span>Bk</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Berkelium,97,<b>251</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal radioactive">
+          <div class="dropdown"><span>Cf</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Californium,98,<b>251</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal radioactive">
+          <div class="dropdown"><span>Es</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Einstenium,99,<b>252</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal radioactive">
+          <div class="dropdown"><span>Fm</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Fermium,100,<b>257</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal radioactive">
+          <div class="dropdown"><span>Md</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Mendelevium,101,<b>258</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal radioactive">
+          <div class="dropdown"><span>No</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Nobelium,102,<b>259</b></p>
+            </div>
+          </div>
+        </td>
+        <td class="td f solid metal radioactive">
+          <div class="dropdown"><span>Lr</span>
+            <div class="dropdown-content">
+              <p style="color:black;font-family:exo;font-size:15px;">Lawrencium,103,<b>262</b></p>
+            </div>
+          </div>
+        </td>
+        <td style="color:black;border:none;"></td>
+      </tr>
+    </table>
+  </center>
+  <div style="float:right;margin-top:4%;padding-right:20px;"><i> </i></div>
+  <p style="border:none;margin-top:100px;"></p>
+  <div style="background-repeat:repeat-x;background-image:url();height:30px;transform:rotate(3deg);"></div>
+  <details>
+    <summary>
+      <p style="font-family:exo;margin-left:30px;font-weight:bold;">Basic Terminology in Chemistry</br></br></p>
+    </summary>
+    <dl>
+      <div style="margin-left:40px;font-family:nunito;">
+        <p><b>CHEMICAL FORMULA:</b> A chemical formula is a way of presenting information about the chemical proportions
+          of atoms that constitute a particular chemical compound or molecule, using chemical element symbols, numbers,
+          and sometimes also other symbols, such as parentheses, dashes, brackets, commas and plus and minus signs<a
+            href="">@Wikipedia</a></br></br></p>
+        <p><b>ATOMIC NUMBER:</b> The atomic number or proton number (symbol Z) of a chemical element is the number of
+          protons found in the nucleus of every atom of that element.<a href="">@Wikipedia</a></br></br></p>
+        <p><b>RELATIVE ATOMIC MASS:</b> Relative atomic mass or atomic weight is a dimensionless physical quantity
+          defined as the ratio of the average mass of atoms of a chemical element in a given sample to the atomic mass
+          constant. The atomic mass constant is defined as being of the mass of a carbon-12 atom<a
+            href="https://en.wikipedia.org/wiki/Standard_atomic_weight" target="_blank">@Wikipedia</a></br></br></p>
+        <p><b>RADIOACTIVITY:</b> Radioactivity, property exhibited by certain types of matter of emitting energy and
+          subatomic particles spontaneously. It is, in essence, an attribute of individual atomic nuclei.<a
+            href="https://en.wikipedia.org/?title=Radioactivity&redirect=no" target="_blank">@Wikipedia</a></br></br>
+        </p>
+        <p><b>MOLARITY:</b> Molarity (M) is defined as the number of moles of solute per liter of solution. molarity =
+          moles of solute/liters of solution. Molality (m) is defined as the number of moles of solute per kilogram of
+          solvent.<a href="">@Wikipeida</a></br></br></p>
+        <p><b>MOLALITY:</b> Molality, also called molal concentration, is a measure of the concentration of a solute in
+          a solution in terms of amount of substance in a specified amount of mass of the solvent. This contrasts with
+          the definition of molarity which is based on a specified volume of solution<a href="">@Wikipedia</a></br></br>
+        </p>
+        <p><b>I.U.P.A.C:</b> The International Union of Pure and Applied Chemistry is an international federation of
+          National Adhering Organizations that represents chemists in individual countries. It is a member of the
+          International Science Council.<a href="">@Wikipedia</a></br></br></p>
+      </div>
+    </dl>
+
+  </details>
+  <!-- <footer style="background-color:black;">
+  <br><br>
+  <center>
+    <p class="text3" class="animation1"><i>DON'T FORGET TO</i></p></br>
+    <p class="text2">FOLLOW US</p></br>
+    <a  class="link1" href="https://instagram.com/gururandhawa/?hl=en" target="_blank"><dfn title="SPIDER8019.WHEELS/Instagram official"</dfn>
+      <i class="fa fa-instagram" aria-hidden="true"></i>
+    </a>
+    <a class="link1" href="https://instagram.com/gururandhawa/?hl=en" target="_blank"><dfn title="SPIDER8019.WHEELS/Youtube official"</dfn>
+    <i class="fa fa-youtube-play" aria-hidden="true"></i>
+    </a>
+    <a class="link1" href="https://instagram.com/gururandhawa/?hl=en" target="_blank"><dfn title="SPIDER8019.WHEELS/Facebook official"</dfn>
+      <i class="fa fa-facebook" aria-hidden="true"></i>
+    </a>
+    <a class="link1" href="https://instagram.com/gururandhawa/?hl=en" target="_blank"><dfn title="SPIDER8019.WHEELS/Snapchat official"</dfn>
+      <i class="fa fa-snapchat-ghost" aria-hidden="true"></i>
+    </a>
+    <a class="link1" href="https://instagram.com/gururandhawa/?hl=en" target="_blank"><dfn title="SPIDER8019.WHEELS/Twitter official"</dfn>
+      <i class="fa fa-twitter" aria-hidden="true"></i>
+    </a>
+    <p class="text4">@2020,SPIDER8019. All Rights are reserved</p>
+  </center>
+  <br><br>
+</footer> -->
+
+</body>
+
+</html>

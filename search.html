@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Exo">
+  <link rel="stylesheet" type="text/css" href="main.css">
+  <title>Search</title>
+  <!-- Include external CSS file -->
+  <link rel="stylesheet" type="text/css" href="search.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
+  <link rel="stylesheet" href="/boot/bootstrap.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  <script>
+    // Sample data containing elements of the periodic table
+    var periodicTableData = {
+      "hydrogen": {
+        "name": "Hydrogen",
+        "symbol": "H",
+        "configuration": "1s^1",
+        "isotopes": "H (Hydrogen), D (Deuterium), T (Tritium)",
+        "abundance": "739,000"
+      },
+      "helium": {
+        "name": "Helium",
+        "symbol": "He",
+        "configuration": "1s^2",
+        "isotopes": "He-3, He-4",
+        "abundance": "5.2 ppm"
+      },
+      "lithium": {
+        "name": "Lithium",
+        "symbol": "Li",
+        "configuration": "[He] 2s^1",
+        "isotopes": "Li-6, Li-7",
+        "abundance": "20 ppm"
+      },
+      "beryllium": {
+        "name": "Beryllium",
+        "symbol": "Be",
+        "configuration": "[He] 2s^2",
+        "isotopes": "Be-7, Be-9",
+        "abundance": "2.8 ppm"
+      },
+      "boron": {
+        "name": "Boron",
+        "symbol": "B",
+        "configuration": "[He] 2s^2 2p^1",
+        "isotopes": "B-10, B-11",
+        "abundance": "8 ppm"
+      },
+      "carbon": {
+        "name": "Carbon",
+        "symbol": "C",
+        "configuration": "[He] 2s^2 2p^2",
+        "isotopes": "C-12, C-13, C-14",
+        "abundance": "200 ppm"
+      },
+      "nitrogen": {
+        "name": "Nitrogen",
+        "symbol": "N",
+        "configuration": "[He] 2s^2 2p^3",
+        "isotopes": "N-14, N-15",
+        "abundance": "19 ppm"
+      },
+      "oxygen": {
+        "name": "Oxygen",
+        "symbol": "O",
+        "configuration": "[He] 2s^2 2p^4",
+        "isotopes": "O-16, O-17, O-18",
+        "abundance": "461,000 ppm"
+      },
+      "fluorine": {
+        "name": "Fluorine",
+        "symbol": "F",
+        "configuration": "[He] 2s^2 2p^5",
+        "isotopes": "F-19",
+        "abundance": "585 ppm"
+      },
+      "neon": {
+        "name": "Neon",
+        "symbol": "Ne",
+        "configuration": "[He] 2s^2 2p^6",
+        "isotopes": "Ne-20, Ne-21, Ne-22",
+        "abundance": "18 ppm"
+      },
+      "sodium": {
+        "name": "Sodium",
+        "symbol": "Na",
+        "configuration": "[Ne] 3s^1",
+        "isotopes": "Na-23",
+        "abundance": "23,600 ppm"
+      },
+      "magnesium": {
+        "name": "Magnesium",
+        "symbol": "Mg",
+        "configuration": "[Ne] 3s^2",
+        "isotopes": "Mg-24, Mg-25, Mg-26",
+        "abundance": "12,600 ppm"
+      },
+      "aluminum": {
+        "name": "Aluminum",
+        "symbol": "Al",
+        "configuration": "[Ne] 3s^2 3p^1",
+        "isotopes": "Al-27",
+        "abundance": "22 ppm"
+      },
+      "silicon": {
+        "name": "Silicon",
+        "symbol": "Si",
+        "configuration": "[Ne] 3s^2 3p^2",
+        "isotopes": "Si-28, Si-29, Si-30",
+        "abundance": "34 ppm"
+      },
+      "phosphorus": {
+        "name": "Phosphorus",
+        "symbol": "P",
+        "configuration": "[Ne] 3s^2 3p^3",
+        "isotopes": "P-31, P-32, P-33",
+        "abundance": "450 ppm"
+      },
+      "sulfur": {
+        "name": "Sulfur",
+        "symbol": "S",
+        "configuration": "[Ne] 3s^2 3p^4",
+        "isotopes": "S-32, S-33, S-34, S-36",
+        "abundance": "35 ppm"
+      },
+      "chlorine": {
+        "name": "Chlorine",
+        "symbol": "Cl",
+        "configuration": "[Ne] 3s^2 3p^5",
+        "isotopes": "Cl-35, Cl-37",
+        "abundance": "195 ppm"
+      },
+      "argon": {
+        "name": "Argon",
+        "symbol": "Ar",
+        "configuration": "[Ne] 3s^2 3p^6",
+        "isotopes": "Ar-36, Ar-38, Ar-40",
+        "abundance": "0.124 ppm"
+      },
+      "potassium": {
+        "name": "Potassium",
+        "symbol": "K",
+        "configuration": "[Ar] 4s^1",
+        "isotopes": "K-39, K-40, K-41",
+        "abundance": "375,000 ppm"
+      },
+      "calcium": {
+        "name": "Calcium",
+        "symbol": "Ca",
+        "configuration": "[Ar] 4s^2",
+        "isotopes": "Ca-40, Ca-41, Ca-42, Ca-43, Ca-44, Ca-45, Ca-46, Ca-47, Ca-48",
+        "abundance": "330 ppm"
+      },
+      "scandium": {
+        "name": "Scandium",
+        "symbol": "Sc",
+        "configuration": "[Ar] 4s^2 3d^1",
+        "isotopes": "Sc-44, Sc-45, Sc-46, Sc-47, Sc-48",
+        "abundance": "3 ppm"
+      },
+      "titanium": {
+        "name": "Titanium",
+        "symbol": "Ti",
+        "configuration": "[Ar] 4s^2 3d^2",
+        "isotopes": "Ti-46, Ti-47, Ti-48, Ti-49, Ti-50",
+        "abundance": "3.2 ppm"
+      },
+      "vanadium": {
+        "name": "Vanadium",
+        "symbol": "V",
+        "configuration": "[Ar] 4s^2 3d^3",
+        "isotopes": "V-50, V-51",
+        "abundance": "200 ppm"
+      },
+      "chromium": {
+        "name": "Chromium",
+        "symbol": "Cr",
+        "configuration": "[Ar] 4s^2 3d^4",
+        "isotopes": "Cr-50, Cr-51, Cr-52, Cr-53, Cr-54",
+        "abundance": "320 ppm"
+      },
+      "manganese": {
+        "name": "Manganese",
+        "symbol": "Mn",
+        "configuration": "[Ar] 4s^2 3d^5",
+        "isotopes": "Mn-53, Mn-54, Mn-55",
+        "abundance": "1,000 ppm"
+      },
+      "iron": {
+        "name": "Iron",
+        "symbol": "Fe",
+        "configuration": "[Ar] 4s^2 3d^6",
+        "isotopes": "Fe-52, Fe-53, Fe-54, Fe-55, Fe-56, Fe-57, Fe-58, Fe-59, Fe-60, Fe-61, Fe-62, Fe-63, Fe-64",
+        "abundance": "4,600 ppm"
+      },
+      "cobalt": {
+        "name": "Cobalt",
+        "symbol": "Co",
+        "configuration": "[Ar] 4s^2 3d^7",
+        "isotopes": "Co-58, Co-59, Co-60, Co-61, Co-62, Co-63, Co-64, Co-65, Co-66, Co-67, Co-68, Co-69, Co-70, Co-71, Co-72, Co-73, Co-74, Co-75, Co-76, Co-77, Co-78, Co-79, Co-80, Co-81, Co-82, Co-83, Co-84, Co-85, Co-86, Co-87, Co-88, Co-89, Co-90, Co-91, Co-92, Co-93, Co-94, Co-95, Co-96, Co-97, Co-98, Co-99, Co-100, Co-101, Co-102, Co-103, Co-104, Co-105, Co-106, Co-107, Co-108, Co-109, Co-110, Co-111, Co-112, Co-113, Co-114, Co-115, Co-116, Co-117, Co-118, Co-119, Co-120, Co-121, Co-122",
+        "abundance": "20 ppm"
+      },
+      "nickel": {
+        "name": "Nickel",
+        "symbol": "Ni",
+        "configuration": "[Ar] 4s^2 3d^8",
+        "isotopes": "Ni-56, Ni-57, Ni-58, Ni-59, Ni-60, Ni-61, Ni-62, Ni-63, Ni-64, Ni-65, Ni-66, Ni-67, Ni-68, Ni-69, Ni-70, Ni-71, Ni-72, Ni-73, Ni-74, Ni-75, Ni-76, Ni-77, Ni-78, Ni-79, Ni-80, Ni-81, Ni-82, Ni-83, Ni-84, Ni-85, Ni-86, Ni-87, Ni-88, Ni-89, Ni-90, Ni-91, Ni-92, Ni-93, Ni-94, Ni-95, Ni-96, Ni-97, Ni-98, Ni-99, Ni-100, Ni-101, Ni-102, Ni-103, Ni-104, Ni-105, Ni-106, Ni-107, Ni-108, Ni-109, Ni-110, Ni-111, Ni-112, Ni-113, Ni-114, Ni-115, Ni-116, Ni-117, Ni-118, Ni-119, Ni-120, Ni-121, Ni-122, Ni-123, Ni-124, Ni-125, Ni-126",
+        "abundance": "68 ppm"
+      },
+      "copper": {
+        "name": "Copper",
+        "symbol": "Cu",
+        "configuration": "[Ar] 4s^2 3d^9",
+        "isotopes": "Cu-63, Cu-65",
+        "abundance": "50 ppm"
+      },
+      "zinc": {
+        "name": "Zinc",
+        "symbol": "Zn",
+        "configuration": "[Ar] 4s^2 3d^10",
+        "isotopes": "Zn-64, Zn-66, Zn-67, Zn-68, Zn-70",
+        "abundance": "70 ppm"
+      },
+      "gallium": {
+        "name": "Gallium",
+        "symbol": "Ga",
+        "configuration": "[Ar] 4s^2 3d^10 4p^1",
+        "isotopes": "Ga-69, Ga-71",
+        "abundance": "10 ppm"
+      },
+      "germanium": {
+        "name": "Germanium",
+        "symbol": "Ge",
+        "configuration": "[Ar] 4s^2 3d^10 4p^2",
+        "isotopes": "Ge-70, Ge-72, Ge-73, Ge-74, Ge-76",
+        "abundance": "1.5 ppm"
+      },
+      "arsenic": {
+        "name": "Arsenic",
+        "symbol": "As",
+        "configuration": "[Ar] 4s^2 3d^10 4p^3",
+        "isotopes": "As-73, As-75, As-77",
+        "abundance": "1.8 ppm"
+      },
+      "selenium": {
+        "name": "Selenium",
+        "symbol": "Se",
+        "configuration": "[Ar] 4s^2 3d^10 4p^4",
+        "isotopes": "Se-74, Se-76, Se-77, Se-78, Se-80, Se-82",
+        "abundance": "0.1 ppm"
+      },
+      "bromine": {
+        "name": "Bromine",
+        "symbol": "Br",
+        "configuration": "[Ar] 4s^2 3d^10 4p^5",
+        "isotopes": "Br-79, Br-81",
+        "abundance": "0.4 ppm"
+      },
+      "krypton": {
+        "name": "Krypton",
+        "symbol": "Kr",
+        "configuration": "[Ar] 4s^2 3d^10 4p^6",
+        "isotopes": "Kr-78, Kr-80, Kr-82, Kr-83, Kr-84, Kr-86",
+        "abundance": "0.0001 ppm"
+      },
+      "rubidium": {
+        "name": "Rubidium",
+        "symbol": "Rb",
+        "configuration": "[Kr] 5s^1",
+        "isotopes": "Rb-85, Rb-87",
+        "abundance": "1.2 ppm"
+      },
+      "strontium": {
+        "name": "Strontium",
+        "symbol": "Sr",
+        "configuration": "[Kr] 5s^2",
+        "isotopes": "Sr-84, Sr-86, Sr-87, Sr-88",
+        "abundance": "370 ppm"
+      },
+      "yttrium": {
+        "name": "Yttrium",
+        "symbol": "Y",
+        "configuration": "[Kr] 5s^2 4d^1",
+        "isotopes": "Y-88, Y-89, Y-90, Y-91, Y-92, Y-93, Y-94",
+        "abundance": "2.8 ppm"
+      },
+      "zirconium": {
+        "name": "Zirconium",
+        "symbol": "Zr",
+        "configuration": "[Kr] 5s^2 4d^2",
+        "isotopes": "Zr-90, Zr-91, Zr-92, Zr-94, Zr-96",
+        "abundance": "165 ppm"
+      },
+      "niobium": {
+        "name": "Niobium",
+        "symbol": "Nb",
+        "configuration": "[Kr] 5s^2 4d^4",
+        "isotopes": "Nb-92, Nb-93, Nb-94, Nb-95, Nb-97",
+        "abundance": "20 ppm"
+      },
+      "molybdenum": {
+        "name": "Molybdenum",
+        "symbol": "Mo",
+        "configuration": "[Kr] 5s^2 4d^5",
+        "isotopes": "Mo-92, Mo-94, Mo-95, Mo-96, Mo-97, Mo-98, Mo-100",
+        "abundance": "1.2 ppm"
+      },
+      "technetium": {
+        "name": "Technetium",
+        "symbol": "Tc",
+        "configuration": "[Kr] 5s^2 4d^5 5s^1",
+        "isotopes": "Tc-95, Tc-97, Tc-98, Tc-99, Tc-100, Tc-101, Tc-102, Tc-103, Tc-104, Tc-105, Tc-106",
+        "abundance": "0 ppm"
+      },
+      "ruthenium": {
+        "name": "Ruthenium",
+        "symbol": "Ru",
+        "configuration": "[Kr] 5s^2 4d^7",
+        "isotopes": "Ru-96, Ru-98, Ru-99, Ru-100, Ru-101, Ru-102, Ru-104",
+        "abundance": "0.2 ppm"
+      },
+      "rhodium": {
+        "name": "Rhodium",
+        "symbol": "Rh",
+        "configuration": "[Kr] 5s^2 4d^8",
+        "isotopes": "Rh-102, Rh-103, Rh-104, Rh-105, Rh-106, Rh-107, Rh-108, Rh-109, Rh-110, Rh-111",
+        "abundance": "0.2 ppm"
+      },
+      "palladium": {
+        "name": "Palladium",
+        "symbol": "Pd",
+        "configuration": "[Kr] 5s^2 4d^10",
+        "isotopes": "Pd-102, Pd-104, Pd-105, Pd-106, Pd-108, Pd-110",
+        "abundance": "0.015 ppm"
+      },
+      "silver": {
+        "name": "Silver",
+        "symbol": "Ag",
+        "configuration": "[Kr] 5s^2 4d^10 5s^1",
+        "isotopes": "Ag-107, Ag-109",
+        "abundance": "0.075 ppm"
+      },
+      "cadmium": {
+        "name": "Cadmium",
+        "symbol": "Cd",
+        "configuration": "[Kr] 5s^2 4d^10 5p^2",
+        "isotopes": "Cd-106, Cd-108, Cd-110, Cd-111, Cd-112, Cd-113, Cd-114, Cd-116",
+        "abundance": "0.15 ppm"
+      },
+      "indium": {
+        "name": "Indium",
+        "symbol": "In",
+        "configuration": "[Kr] 5s^2 4d^10 5p^1",
+        "isotopes": "In-113, In-115",
+        "abundance": "0.25 ppm"
+      },
+      "tin": {
+        "name": "Tin",
+        "symbol": "Sn",
+        "configuration": "[Kr] 5s^2 4d^10 5p^2",
+        "isotopes": "Sn-112, Sn-114, Sn-115, Sn-116, Sn-117, Sn-118, Sn-119, Sn-120, Sn-122, Sn-124",
+        "abundance": "2.2 ppm"
+      },
+      "antimony": {
+        "name": "Antimony",
+        "symbol": "Sb",
+        "configuration": "[Kr] 5s^2 4d^10 5p^3",
+        "isotopes": "Sb-121, Sb-123",
+        "abundance": "0.2 ppm"
+      },
+      "tellurium": {
+        "name": "Tellurium",
+        "symbol": "Te",
+        "configuration": "[Kr] 5s^2 4d^10 5p^4",
+        "isotopes": "Te-120, Te-122, Te-123, Te-124, Te-125, Te-126, Te-128, Te-130",
+        "abundance": "0.03 ppm"
+      },
+      "iodine": {
+        "name": "Iodine",
+        "symbol": "I",
+        "configuration": "[Kr] 5s^2 4d^10 5p^5",
+        "isotopes": "I-127",
+        "abundance": "0.0005 ppm"
+      },
+      "xenon": {
+        "name": "Xenon",
+        "symbol": "Xe",
+        "configuration": "[Kr] 5s^2 4d^10 5p^6",
+        "isotopes": "Xe-124, Xe-126, Xe-128, Xe-129, Xe-130, Xe-131, Xe-132, Xe-134, Xe-136",
+        "abundance": "0.009 ppm"
+      },
+      "cesium": {
+        "name": "Cesium",
+        "symbol": "Cs",
+        "configuration": "[Xe] 6s^1",
+        "isotopes": "Cs-133",
+        "abundance": "0.00003 ppm"
+      },
+      "barium": {
+        "name": "Barium",
+        "symbol": "Ba",
+        "configuration": "[Xe] 6s^2",
+        "isotopes": "Ba-134, Ba-135, Ba-136, Ba-137, Ba-138",
+        "abundance": "0.0004 ppm"
+      },
+      "lanthanum": {
+        "name": "Lanthanum",
+        "symbol": "La",
+        "configuration": "[Xe] 6s^2 5d^1",
+        "isotopes": "La-138, La-139",
+        "abundance": "0.00003 ppm"
+      },
+      "cerium": {
+        "name": "Cerium",
+        "symbol": "Ce",
+        "configuration": "[Xe] 4f^1 5d^1 6s^2",
+        "isotopes": "Ce-136, Ce-138, Ce-140, Ce-142",
+        "abundance": "0.00002 ppm"
+      },
+      "praseodymium": {
+        "name": "Praseodymium",
+        "symbol": "Pr",
+        "configuration": "[Xe] 4f^3 6s^2",
+        "isotopes": "Pr-141",
+        "abundance": "0.000007 ppm"
+      },
+      "neodymium": {
+        "name": "Neodymium",
+        "symbol": "Nd",
+        "configuration": "[Xe] 4f^4 6s^2",
+        "isotopes": "Nd-142, Nd-143, Nd-145, Nd-146, Nd-148, Nd-150",
+        "abundance": "0.000006 ppm"
+      },
+      "promethium": {
+        "name": "Promethium",
+        "symbol": "Pm",
+        "configuration": "[Xe] 4f^5 6s^2",
+        "isotopes": "Pm-145, Pm-146, Pm-147, Pm-148, Pm-149, Pm-150",
+        "abundance": "0 ppm"
+      },
+      "samarium": {
+        "name": "Samarium",
+        "symbol": "Sm",
+        "configuration": "[Xe] 4f^6 6s^2",
+        "isotopes": "Sm-144, Sm-147, Sm-148, Sm-149, Sm-150, Sm-152, Sm-154",
+        "abundance": "0.000005 ppm"
+      },
+      "europium": {
+        "name": "Europium",
+        "symbol": "Eu",
+        "configuration": "[Xe] 4f^7 6s^2",
+        "isotopes": "Eu-151, Eu-153",
+        "abundance": "0.000003 ppm"
+      },
+      "gadolinium": {
+        "name": "Gadolinium",
+        "symbol": "Gd",
+        "configuration": "[Xe] 4f^7 5d^1 6s^2",
+        "isotopes": "Gd-152, Gd-154, Gd-155, Gd-156, Gd-157, Gd-158, Gd-160",
+        "abundance": "0.000003 ppm"
+      },
+      "terbium": {
+        "name": "Terbium",
+        "symbol": "Tb",
+        "configuration": "[Xe] 4f^9 6s^2",
+        "isotopes": "Tb-159",
+        "abundance": "0.000002 ppm"
+      },
+      "dysprosium": {
+        "name": "Dysprosium",
+        "symbol": "Dy",
+        "configuration": "[Xe] 4f^10 6s^2",
+        "isotopes": "Dy-156, Dy-158, Dy-160, Dy-161, Dy-162, Dy-163, Dy-164",
+        "abundance": "0.000002 ppm"
+      },
+      "holmium": {
+        "name": "Holmium",
+        "symbol": "Ho",
+        "configuration": "[Xe] 4f^11 6s^2",
+        "isotopes": "Ho-165",
+        "abundance": "0.000001 ppm"
+      },
+      "erbium": {
+        "name": "Erbium",
+        "symbol": "Er",
+        "configuration": "[Xe] 4f^12 6s^2",
+        "isotopes": "Er-162, Er-164, Er-166, Er-167, Er-168, Er-170",
+        "abundance": "0.000001 ppm"
+      },
+      "thulium": {
+        "name": "Thulium",
+        "symbol": "Tm",
+        "configuration": "[Xe] 4f^13 6s^2",
+        "isotopes": "Tm-169",
+        "abundance": "0.0000005 ppm"
+      },
+      "ytterbium": {
+        "name": "Ytterbium",
+        "symbol": "Yb",
+        "configuration": "[Xe] 4f^14 6s^2",
+        "isotopes": "Yb-168, Yb-170, Yb-171, Yb-172, Yb-173, Yb-174, Yb-176",
+        "abundance": "0.0000005 ppm"
+      },
+      "lutetium": {
+        "name": "Lutetium",
+        "symbol": "Lu",
+        "configuration": "[Xe] 4f^14 5d^1 6s^2",
+        "isotopes": "Lu-175",
+        "abundance": "0.0000003 ppm"
+      },
+      "hafnium": {
+        "name": "Hafnium",
+        "symbol": "Hf",
+        "configuration": "[Xe] 4f^14 5d^2 6s^2",
+        "isotopes": "Hf-174, Hf-176, Hf-177, Hf-178, Hf-179, Hf-180",
+        "abundance": "0.0000003 ppm"
+      },
+      "tantalum": {
+        "name": "Tantalum",
+        "symbol": "Ta",
+        "configuration": "[Xe] 4f^14 5d^3 6s^2",
+        "isotopes": "Ta-180, Ta-181",
+        "abundance": "0.0000002 ppm"
+      },
+      "tungsten": {
+        "name": "Tungsten",
+        "symbol": "W",
+        "configuration": "[Xe] 4f^14 5d^4 6s^2",
+        "isotopes": "W-180, W-182, W-183, W-184, W-186",
+        "abundance": "0.0000002 ppm"
+      },
+      "rhenium": {
+        "name": "Rhenium",
+        "symbol": "Re",
+        "configuration": "[Xe] 4f^14 5d^5 6s^2",
+        "isotopes": "Re-185, Re-187",
+        "abundance": "0.0000001 ppm"
+      },
+      "osmium": {
+        "name": "Osmium",
+        "symbol": "Os",
+        "configuration": "[Xe] 4f^14 5d^6 6s^2",
+        "isotopes": "Os-184, Os-186, Os-187, Os-188, Os-189, Os-190, Os-192",
+        "abundance": "0.0000001 ppm"
+      },
+      "iridium": {
+        "name": "Iridium",
+        "symbol": "Ir",
+        "configuration": "[Xe] 4f^14 5d^7 6s^2",
+        "isotopes": "Ir-191, Ir-193",
+        "abundance": "0.0000001 ppm"
+      },
+      "platinum": {
+        "name": "Platinum",
+        "symbol": "Pt",
+        "configuration": "[Xe] 4f^14 5d^9 6s^1",
+        "isotopes": "Pt-190, Pt-192, Pt-194, Pt-195, Pt-196, Pt-198",
+        "abundance": "0.0000001 ppm"
+      },
+      "gold": {
+        "name": "Gold",
+        "symbol": "Au",
+        "configuration": "[Xe] 4f^14 5d^10 6s^1",
+        "isotopes": "Au-197",
+        "abundance": "0.0000001 ppm"
+      },
+      "mercury": {
+        "name": "Mercury",
+        "symbol": "Hg",
+        "configuration": "[Xe] 4f^14 5d^10 6s^2",
+        "isotopes": "Hg-196, Hg-198, Hg-199, Hg-200, Hg-201, Hg-202, Hg-204",
+        "abundance": "0.00000005 ppm"
+      },
+      "thallium": {
+        "name": "Thallium",
+        "symbol": "Tl",
+        "configuration": "[Xe] 4f^14 5d^10 6s^2 6p^1",
+        "isotopes": "Tl-203, Tl-205",
+        "abundance": "0.00000005 ppm"
+      },
+      "lead": {
+        "name": "Lead",
+        "symbol": "Pb",
+        "configuration": "[Xe] 4f^14 5d^10 6s^2 6p^2",
+        "isotopes": "Pb-204, Pb-206, Pb-207, Pb-208",
+        "abundance": "0.00000005 ppm"
+      },
+      "bismuth": {
+        "name": "Bismuth",
+        "symbol": "Bi",
+        "configuration": "[Xe] 4f^14 5d^10 6s^2 6p^3",
+        "isotopes": "Bi-209",
+        "abundance": "0.00000003 ppm"
+      },
+      "polonium": {
+        "name": "Polonium",
+        "symbol": "Po",
+        "configuration": "[Xe] 4f^14 5d^10 6s^2 6p^4",
+        "isotopes": "Po-209, Po-210",
+        "abundance": "0 ppm"
+      },
+      "astatine": {
+        "name": "Astatine",
+        "symbol": "At",
+        "configuration": "[Xe] 4f^14 5d^10 6s^2 6p^5",
+        "isotopes": "At-210",
+        "abundance": "0 ppm"
+      },
+      "radon": {
+        "name": "Radon",
+        "symbol": "Rn",
+        "configuration": "[Xe] 4f^14 5d^10 6s^2 6p^6",
+        "isotopes": "Rn-222",
+        "abundance": "0 ppm"
+      },
+      "francium": {"name": "Francium",
+        "symbol": "Fr",
+        "configuration": "[Rn] 7s^1",
+        "isotopes": "Fr-223",
+        "abundance": "0 ppm"
+      },
+      "radium": {
+        "name": "Radium",
+        "symbol": "Ra",
+        "configuration": "[Rn] 7s^2",
+        "isotopes": "Ra-226",
+        "abundance": "0 ppm"
+      },
+      "actinium": {
+        "name": "Actinium",
+        "symbol": "Ac",
+        "configuration": "[Rn] 6d^1 7s^2",
+        "isotopes": "Ac-227",
+        "abundance": "0 ppm"
+      },
+      "thorium": {
+        "name": "Thorium",
+        "symbol": "Th",
+        "configuration": "[Rn] 6d^2 7s^2",
+        "isotopes": "Th-232",
+        "abundance": "0.00000001 ppm"
+      },
+      "protactinium": {
+        "name": "Protactinium",
+        "symbol": "Pa",
+        "configuration": "[Rn] 5f^2 6d^1 7s^2",
+        "isotopes": "Pa-231",
+        "abundance": "0 ppm"
+      },
+      "uranium": {
+        "name": "Uranium",
+        "symbol": "U",
+        "configuration": "[Rn] 5f^3 6d^1 7s^2",
+        "isotopes": "U-234, U-235, U-238",
+        "abundance": "0.00000001 ppm"
+      },
+      "neptunium": {
+        "name": "Neptunium",
+        "symbol": "Np",
+        "configuration": "[Rn] 5f^4 6d^1 7s^2",
+        "isotopes": "Np-237",
+        "abundance": "0 ppm"
+      },
+      "plutonium": {
+        "name": "Plutonium",
+        "symbol": "Pu",
+        "configuration": "[Rn] 5f^6 7s^2",
+        "isotopes": "Pu-239, Pu-240, Pu-241, Pu-242, Pu-244",
+        "abundance": "0 ppm"
+      },
+      "americium": {
+        "name": "Americium",
+        "symbol": "Am",
+        "configuration": "[Rn] 5f^7 7s^2",
+        "isotopes": "Am-241",
+        "abundance": "0 ppm"
+      },
+      "curium": {
+        "name": "Curium",
+        "symbol": "Cm",
+        "configuration": "[Rn] 5f^7 6d^1 7s^2",
+        "isotopes": "Cm-242, Cm-243, Cm-244, Cm-245, Cm-246, Cm-247",
+        "abundance": "0 ppm"
+      },
+      "berkelium": {
+        "name": "Berkelium",
+        "symbol": "Bk",
+        "configuration": "[Rn] 5f^9 7s^2",
+        "isotopes": "Bk-247, Bk-248, Bk-249",
+        "abundance": "0 ppm"
+      },
+      "californium": {
+        "name": "Californium",
+        "symbol": "Cf",
+        "configuration": "[Rn] 5f^10 7s^2",
+        "isotopes": "Cf-249, Cf-250, Cf-251, Cf-252",
+        "abundance": "0 ppm"
+      },
+      "einsteinium": {
+        "name": "Einsteinium",
+        "symbol": "Es",
+        "configuration": "[Rn] 5f^11 7s^2",
+        "isotopes": "Es-252, Es-253, Es-254",
+        "abundance": "0 ppm"
+      },
+      "fermium": {
+        "name": "Fermium",
+        "symbol": "Fm",
+        "configuration": "[Rn] 5f^12 7s^2",
+        "isotopes": "Fm-253, Fm-254, Fm-255, Fm-256, Fm-257",
+        "abundance": "0 ppm"
+      },
+      "mendelevium": {
+        "name": "Mendelevium",
+        "symbol": "Md",
+        "configuration": "[Rn] 5f^13 7s^2",
+        "isotopes": "Md-255, Md-256, Md-257, Md-258",
+        "abundance": "0 ppm"
+      },
+      "nobelium": {
+        "name": "Nobelium",
+        "symbol": "No",
+        "configuration": "[Rn] 5f^14 7s^2",
+        "isotopes": "No-255, No-256, No-257, No-258, No-259",
+        "abundance": "0 ppm"
+      },
+      "lawrencium": {
+        "name": "Lawrencium",
+        "symbol": "Lr",
+        "configuration": "[Rn] 5f^14 6d^1 7s^2",
+        "isotopes": "Lr-256, Lr-257, Lr-258, Lr-259, Lr-260, Lr-261, Lr-262",
+        "abundance": "0 ppm"
+      },
+      "rutherfordium": {
+        "name": "Rutherfordium",
+        "symbol": "Rf",
+        "configuration": "[Rn] 5f^14 6d^2 7s^2",
+        "isotopes": "Rf-261, Rf-262, Rf-263, Rf-264, Rf-265, Rf-266, Rf-267",
+        "abundance": "0 ppm"
+      },
+      "dubnium": {
+        "name": "Dubnium",
+        "symbol": "Db",
+        "configuration": "[Rn] 5f^14 6d^3 7s^2",
+        "isotopes": "Db-262, Db-263, Db-264, Db-265, Db-266, Db-267, Db-268",
+        "abundance": "0 ppm"
+      },
+      "seaborgium": {
+        "name": "Seaborgium",
+        "symbol": "Sg",
+        "configuration": "[Rn] 5f^14 6d^4 7s^2",
+        "isotopes": "Sg-263, Sg-264, Sg-265, Sg-266, Sg-267, Sg-268, Sg-269",
+        "abundance": "0 ppm"
+      },
+      "bohrium": {
+        "name": "Bohrium",
+        "symbol": "Bh",
+        "configuration": "[Rn] 5f^14 6d^5 7s^2",
+        "isotopes": "Bh-264, Bh-265, Bh-266, Bh-267, Bh-268, Bh-269, Bh-270",
+        "abundance": "0 ppm"
+      },
+      "hassium": {
+        "name": "Hassium",
+        "symbol": "Hs",
+        "configuration": "[Rn] 5f^14 6d^6 7s^2",
+        "isotopes": "Hs-265, Hs-266, Hs-267, Hs-268, Hs-269, Hs-270, Hs-271",
+        "abundance": "0 ppm"
+      },
+      "meitnerium": {
+        "name": "Meitnerium",
+        "symbol": "Mt",
+        "configuration": "[Rn] 5f^14 6d^7 7s^2",
+        "isotopes": "Mt-266, Mt-267, Mt-268, Mt-269, Mt-270, Mt-271, Mt-272",
+        "abundance": "0 ppm"
+      },
+      "darmstadtium": {
+        "name": "Darmstadtium",
+        "symbol": "Ds",
+        "configuration": "[Rn] 5f^14 6d^8 7s^2",
+        "isotopes": "Ds-267, Ds-268, Ds-269, Ds-270, Ds-271, Ds-272, Ds-273",
+        "abundance": "0 ppm"
+      },
+      "roentgenium": {
+        "name": "Roentgenium",
+        "symbol": "Rg",
+        "configuration": "[Rn] 5f^14 6d^9 7s^2",
+        "isotopes": "Rg-268, Rg-269, Rg-270, Rg-271, Rg-272, Rg-273, Rg-274",
+        "abundance": "0 ppm"
+      },
+      "copernicium": {
+        "name": "Copernicium",
+        "symbol": "Cn",
+        "configuration": "[Rn] 5f^14 6d^10 7s^2",
+        "isotopes": "Cn-269, Cn-270, Cn-271, Cn-272, Cn-273, Cn-274, Cn-275",
+        "abundance": "0 ppm"
+      },
+      "ununtrium": {
+        "name": "Ununtrium",
+        "symbol": "Uut",
+        "configuration": "[Rn] 5f^14 6d^11 7s^2",
+        "isotopes": "Uut-270, Uut-271, Uut-272, Uut-273, Uut-274, Uut-275, Uut-276",
+        "abundance": "0 ppm"
+      },
+      "flerovium": {
+        "name": "Flerovium",
+        "symbol": "Fl",
+        "configuration": "[Rn] 5f^14 6d^12 7s^2",
+        "isotopes": "Fl-271, Fl-272, Fl-273, Fl-274, Fl-275, Fl-276,Fl-277",
+        "abundance": "0 ppm"
+      },
+      "ununpentium": {
+        "name": "Ununpentium",
+        "symbol": "Uup",
+        "configuration": "[Rn] 5f^14 6d^13 7s^2",
+        "isotopes": "Uup-272, Uup-273, Uup-274, Uup-275, Uup-276, Uup-277, Uup-278",
+        "abundance": "0 ppm"
+      },
+      "livermorium": {
+        "name": "Livermorium",
+        "symbol": "Lv",
+        "configuration": "[Rn] 5f^14 6d^14 7s^2",
+        "isotopes": "Lv-273, Lv-274, Lv-275, Lv-276, Lv-277, Lv-278, Lv-279",
+        "abundance": "0 ppm"
+      },
+      "ununseptium": {
+        "name": "Ununseptium",
+        "symbol": "Uus",
+        "configuration": "[Rn] 5f^14 6d^15 7s^2",
+        "isotopes": "Uus-274, Uus-275, Uus-276, Uus-277, Uus-278, Uus-279, Uus-280",
+        "abundance": "0 ppm"
+      },
+      "ununoctium": {
+        "name": "Ununoctium",
+        "symbol": "Uuo",
+        "configuration": "[Rn] 5f^14 6d^10 7s^2 7p^1",
+        "isotopes": "Uuo-279, Uuo-280, Uuo-281, Uuo-282, Uuo-283, Uuo-284, Uuo-285",
+        "abundance": "0 ppm"
+      }
+    };
+
+    // Function to handle input and show suggestions
+    function showSuggestions(input) {
+      var inputValue = input.value.trim().toLowerCase();
+      var suggestionList = document.getElementById("suggestion-list");
+      suggestionList.innerHTML = "";
+
+      if (inputValue === "") return; // If input is empty, hide suggestions
+
+      var suggestions = [];
+      for (var element in periodicTableData) {
+        if (element.toLowerCase().startsWith(inputValue)) {
+          suggestions.push(element);
+        }
+      }
+
+      suggestions.forEach(function (element) {
+        var listItem = document.createElement("li");
+        listItem.textContent = element;
+        listItem.onclick = function () {
+          selectSuggestion(this);
+        };
+        suggestionList.appendChild(listItem);
+      });
+    }
+
+    // Function to select suggestion
+    function selectSuggestion(element) {
+      document.getElementById("expression").value = element.textContent;
+      document.getElementById("suggestion-list").innerHTML = "";
+      
+    }
+
+    // Function to perform search
+    function performSearch() {
+      var inputValue = document.getElementById("expression").value.toLowerCase();
+      var elementData = periodicTableData[inputValue];
+      var elementDetailsDiv = document.getElementById("element-details");
+
+      if (elementData) {
+        elementDetailsDiv.innerHTML = `
+          <table id="element-table">
+            <tr>
+              <th>Name</th>
+              <th>Symbol</th>
+              <th>Configuration</th>
+              <th>Isotopes</th>
+              <th>Abundance</th>
+            </tr>
+            <tr>
+              <td>${elementData.name}</td>
+              <td>${elementData.symbol}</td>
+              <td>${elementData.configuration}</td>
+              <td>${elementData.isotopes}</td>
+              <td>${elementData.abundance}</td>
+            </tr>
+          </table>
+        `;
+      } else {
+        elementDetailsDiv.innerHTML = ""; // Clear div if no data found
+      }
+    }
+  </script>
+</head>
+
+<body bgcolor>
+
+  <div class="box">
+    <center>
+      <img style="position:relative;z-index:-1;animation:example 2s linear infinite;" src="rad.png" width="50px" />
+      <p class="text1" style="font-size:40px;margin-top:20px;">Periodic Table</p>
+      <select id="inp2" onchange="f1()">
+        <option value="name">Element Name</option>
+        <option value="number">Atomic Number</option>
+      </select><br>
+      <input id="expression" style="padding-top:20px;" type="text" placeholder="Enter element name"
+        oninput="showSuggestions(this)" />
+      <ul id="suggestion-list"></ul>
+      <button class="but1" onclick="performSearch()">Search</button>
+    </center>
+  </div>
+
+  <div id="element-details"></div> <!-- Div to display element details -->
+
+</body>
+
+</html>
